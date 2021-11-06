@@ -6,9 +6,10 @@ using MLAPI;
 public class PlayerMovement : NetworkBehaviour
 {
 
-    public float speed = 500f;
+    public float speed = 5f;
 
     private Rigidbody playerRigidBody;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +24,15 @@ public class PlayerMovement : NetworkBehaviour
         {
             return;
         }
-
         MovePlayer();
     }
 
     void MovePlayer()
     {
-        float mH = Input.GetAxis("Horizontal");
-        float mV = Input.GetAxis("Vertical");
-        playerRigidBody.velocity = new Vector3(mH * (Time.deltaTime * speed), playerRigidBody.velocity.y, mV * (Time.deltaTime * speed));
+        float mH = Input.GetAxis("Horizontal")*Time.deltaTime*speed;
+        float mV = Input.GetAxis("Vertical")*Time.deltaTime*speed;
+        //playerRigidBody.velocity = new Vector3(mH * (Time.deltaTime * speed), playerRigidBody.velocity.y, mV * (Time.deltaTime * speed));
+        transform.Translate(mH, 0, mV);
+        
     }
 }
